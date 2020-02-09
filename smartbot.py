@@ -17,10 +17,11 @@ logger.addHandler(handler)
 
 bot = commands.Bot(command_prefix=loadconfig.__prefix__)
 
-from cogs import remind, fun, admin
+from cogs import remind, fun, admin, dadjoke
 remind.setup(bot)
 fun.setup(bot)
 admin.setup(bot)
+dadjoke.setup(bot)
 
 
 @bot.event
