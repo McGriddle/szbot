@@ -14,8 +14,11 @@ class DadJokes(commands.Cog):
         """Gets a random dad joke."""
         api = 'https://icanhazdadjoke.com/'
         async with aiohttp.request('GET', api, headers={'Accept': 'text/plain'}) as r:
-            result = await r.text()
-            await ctx.send(f"`{result}`")
+            if r.status == 200:
+                result = await r.text()
+                await ctx.send(f"`{result}`")
+            else:
+                await ctx.send("Rut roh. Something happened.")
 
 
 def setup(bot):
