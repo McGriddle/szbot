@@ -14,7 +14,7 @@ class admin(commands.Cog):
     async def cog_command_error(self, ctx, error):
         print('Error in {0.command.qualified_name}: {1}'.format(ctx, error))
 
-    @commands.command(hidden=True)
+    @commands.command(help='Change bot status ex. :changestatus dnd')
     @commands.has_role('moderator')
     async def changestatus(self, ctx, status: str):
         status = status.lower()
@@ -29,20 +29,22 @@ class admin(commands.Cog):
         await self.bot.change_presence(status=discord_status)
         await ctx.send(f'**:ok:** Status set: **{discord_status}**')
 
-    @commands.command(hidden=True)
+    @commands.command(help='Say things as bot in a chat ex. :echo #general-chit-chat hi yo')
     @commands.has_role('moderator')
-    async def echo(self, ctx, channelstr: str, *message: str):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__name=loadconfig.__guild_name__, name=channelstr)
-        if channel is not None:
+    async def echo(self, ctx, channel: discord.TextChannel, *message: str):
+        if not channel.permissions_for(ctx.message.author).read_messages == True:
+            return await ctx.send("You're not allowed to access that channel.")
+        try:
             msg = ' '.join(message)
-            await channel.send(msg)
+            return await channel.send(msg)
+        except discord.errors.Forbidden:
+            return await ctx.send("No permissions to read that channel.")
 
-    @commands.command(hidden=True)
+    @commands.command(help='Generate an invite for a channel ex. :geninvite #general-chit-chat')
     @commands.has_role('moderator')
-    async def geninvite(self, ctx):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__name=loadconfig.__guild_name__, name='welcome')
+    async def geninvite(self, ctx, channel: discord.TextChannel):
         invite = await channel.create_invite(max_age=300, max_uses=1, unique=True)
-        msg = f'Invite to guild on channel #welcome \n{invite.url}'
+        msg = f'Invite to guild on channel {channel.name} \n{invite.url}'
         await ctx.author.send(msg)
 
     @commands.command(hidden=True)

@@ -17,11 +17,13 @@ logger.addHandler(handler)
 
 bot = commands.Bot(command_prefix=loadconfig.__prefix__)
 
-from cogs import remind, fun, admin, dadjoke
+from cogs import remind, fun, admin, dadjoke, chatchart, insult
 remind.setup(bot)
 fun.setup(bot)
 admin.setup(bot)
 dadjoke.setup(bot)
+chatchart.setup(bot)
+insult.setup(bot)
 
 
 @bot.event
@@ -45,6 +47,13 @@ async def on_message(message):
 
     if re.search(r"\b(slytherin)\b", message.content.lower()):
         await message.add_reaction('💩')  # :poop:
+
+    if re.search(r"\busa\b", message.content.lower()):
+        await message.add_reaction("\U0001f1fa\U0001f1f8")
+
+    if re.search(r"\b(chuckle|snort)\b", message.content.lower()):
+        await message.add_reaction('💩')
+        await message.channel.send(f'Bad {message.author}')
 
     if bot.user.mentioned_in(message) and message.mention_everyone is False:
         if 'help' in message.content.lower():

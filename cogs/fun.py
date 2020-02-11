@@ -32,6 +32,8 @@ class fun(commands.Cog):
 
     @commands.command(name="fortune", help="Ask the magic 8 ball")
     async def eightball(self, ctx, *question: str):
+        if not question:
+            return await ctx.send('You gotta ask a question yo.')
         answers = ['It is certain.',
                    'It is decidedly so.',
                    'Without a doubt.',
