@@ -94,14 +94,14 @@ class Core(commands.Cog, Stuff):
         if url.endswith(GOOD_EXTENSIONS):
             em = await self._embed(
                 color=0x891193,
-                title="Here is {name} image ..." + " \N{EYES}".format(name=name),
+                title="Here is image ..." + " \N{EYES}".format(name=name),
                 description="[Link if you don't see image]({url})".format(url=url),
                 image=url,
                 footer="Requested by {req} {emoji} • From r/{r}".format(req=ctx.author.display_name, emoji=await self.emoji(), r=subr)
             )
         if url.startswith("https://gfycat.com"):
             em = (
-                "Here is {name} gif ..."
+                "Here is gif ..."
                 + " \N{EYES}\n\n"
                 + "Requested by {req} {emoji} • From {r}\n{url}"
             ).format(
