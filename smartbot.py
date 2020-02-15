@@ -57,8 +57,21 @@ async def on_message(message):
     if re.search(r"\b(slytherin)\b", message.content.lower()):
         await message.add_reaction('💩')  # :poop:
 
-    if re.search(r"\busa\b", message.content.lower()):
+    #us flag
+    if re.search(r"\b(usa|american*s*|united\bstates)\b", message.content.lower()):
         await message.add_reaction("\U0001f1fa\U0001f1f8")
+
+    # canada flag
+    if re.search(r"\b(canada|canadians*)\b", message.content.lower()):
+        await message.add_reaction("\U0001f1e8\U0001f1e6")
+
+    # sweden flag
+    if re.search(r"\b(sweden|swedish)\b", message.content.lower()):
+        await message.add_reaction("\U0001f1f8\U0001f1ea")
+
+    # netherlands flag
+    if re.search(r"\b(netherlands*|holland|dutch)\b", message.content.lower()):
+        await message.add_reaction("\U0001f1f3\U0001f1f1")
 
     if re.search(r"\bcannibalism\b", message.content.lower()):
         await message.channel.send("That's when the cannibalism started...")
@@ -69,10 +82,14 @@ async def on_message(message):
 
     if re.search(r"\b(chuckle|snort)\b", message.content.lower()):
         await message.add_reaction('💩')
-        await message.channel.send(f'Bad {message.author}')
+        await message.channel.send(f'{message.author.name} ಠ_ಠ')
 
     if re.search(r"\bplatypus\b", message.content.lower()):
         await message.add_reaction("\U0001fa93")
+
+    if re.search(r"\byeppers*\b", message.content.lower()):
+        await message.channel.send(f'What did we say about yeppers? (╬ ಠ益ಠ)    (╯°□°）╯︵ ┻━┻')
+
 
     if bot.user.mentioned_in(message) and message.mention_everyone is False:
         if 'help' in message.content.lower():
